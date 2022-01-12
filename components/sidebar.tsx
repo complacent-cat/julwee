@@ -1,20 +1,23 @@
 import { Dispatch } from 'react'
+import Link from 'next/link';
 
-import { ChevronDoubleLeftIcon } from '@heroicons/react/solid'
+import { CategoryPaths } from '../lib/categories'
 
 type Props = {
-  pageLinks?: Array<string>,
+  categoryPaths?: CategoryPaths,
   setState: Dispatch<boolean>,
   sidebar?: boolean
 }
 type MenuProps = {
-  pageLinks?: Array<string>,
+  categoryPaths?: CategoryPaths,
 }
 const MenuList = (props:MenuProps) => {
-  const arr = props.pageLinks;
-  const panel = arr?.map((s:any) => 
-    <div key={s}>
-      {s}
+  const arr = props.categoryPaths;
+  const panel = arr?.map((item:any) => 
+    <div key={item.title}>
+      <Link href={item.path}>
+        <a>{item.title}</a>
+      </Link>
     </div>
   )
   return (
@@ -27,7 +30,7 @@ const Sidebar = (props:Props) => {
   return (
     <div className={'lg:static lg:visible fixed h-full z-10 bg-red-100 ' + (props.sidebar ? 'visible' : 'invisible')}>
       <MenuList 
-      pageLinks={props.pageLinks}/>
+      categoryPaths={props.categoryPaths}/>
     </div>
   )
 }

@@ -1,5 +1,7 @@
 
-export type product = {
+export type Products = Array<Product>
+
+export type Product = {
   id: number,
   title?: string,
   price?: number,
@@ -10,9 +12,14 @@ export type product = {
     count?: number
   }
 }
-const GetProductsList = async() => {
+export const GetProductsList = async() => {
   const res = await fetch('https://fakestoreapi.com/products/1')
   const products = await res.json()
   return products
 };
-export default GetProductsList
+
+export const GetProductsInCategory = async(id:string): Promise<Products> => {
+  const res = await fetch(`https://fakestoreapi.com/products/category/${id}`)
+  const products = await res.json()
+  return products
+}

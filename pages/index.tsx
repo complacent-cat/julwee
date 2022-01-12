@@ -6,34 +6,36 @@ import { GetStaticProps } from 'next';
 import { ReactNode } from 'react';
 
 import Layout from '../components/layout';
-import GetCategoriesList, { Categories } from '../lib/categories';
-// import type Categories from '../lib/categories'
+import { 
+  GetCategoryPaths, 
+  CategoryPaths
+} from '../lib/categories';
 
 type Props = {
   children?: ReactNode,
-  categories?: Categories
+  categoryPaths?: CategoryPaths
 }
 
 const Home: NextPage = (props: Props) => {
   return (
     <Layout 
-      title='julwee'
-      pageLinks={props.categories}>
-        <h1>
-          Read{' '}
-          <Link href='/products/categories'>
-            <a>this page!</a>
-          </Link>
-        </h1>
+    title='julwee'
+    categoryPaths={props.categoryPaths}>
+      <h1>
+        Read{' '}
+        <Link href='/products/categories'>
+          <a>this page!</a>
+        </Link>
+      </h1>
     </Layout>
   )
 }
 export default Home
 
 export const getStaticProps = async() => {
-  const categories = await GetCategoriesList()
+  const categoryPaths = await GetCategoryPaths()
   const props:Props = {
-    categories: categories
+    categoryPaths: categoryPaths,
   }
   return {
     props: props

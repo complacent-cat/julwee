@@ -5,27 +5,27 @@ import { ReactNode } from 'react';
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../../components/layout'
-import GetCategoriesList, { Categories } from '../../lib/categories';
+import { 
+  GetCategoriesList, 
+  Categories,
+  GetCategoryPaths,
+  CategoryPaths,
+} from '../../lib/categories';
 
 type Props = {
   children?: ReactNode,
-  categories?: Categories
+  categoryPaths?: CategoryPaths
 }
-
-const n = [
-  '1',
-  '2',
-  '3',
-  '4',
-]
 
 const Card = (props:any) => {
-  return <div className='bg-blue-300'>{props.value}</div>
+  return <div className='bg-blue-300'>{props.path.title}</div>
 }
 const CardPanel = (props:any) => {
-  const arr = props.pageLinks;
-  const panel = arr?.map((s:any) => 
-    <Card key={s} value={s}/>
+  const arr = props.categoryPaths;
+  const panel = arr?.map((item:any) => 
+    <Card 
+    key={item.title}
+    path={item}/>
   );
   return (
     <div 
@@ -38,10 +38,10 @@ const categories: NextPage = (props: Props) => {
   return (
     <Layout
     title='Catergories'
-    pageLinks={props.categories}>
+    categoryPaths={props.categoryPaths}>
       <h1>Categories</h1>
       <CardPanel 
-      pageLinks={props.categories}/>
+      categoryPaths={props.categoryPaths}/>
       <h2>
         <Link href='/'>
           <a>Back to home!</a>
@@ -53,11 +53,9 @@ const categories: NextPage = (props: Props) => {
 export default categories
 
 export const getStaticProps = async() => {
-  const categories = await GetCategoriesList()
+  const categoryPaths = await GetCategoryPaths()
   const props:Props = {
-    categories: categories
+    categoryPaths: categoryPaths,
   }
-  return {
-    props: props
-  }
+  return { props: props }
 }

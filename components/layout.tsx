@@ -3,11 +3,12 @@ import Head from 'next/head'
 
 import Sidebar from '../components/sidebar'
 import Topbar from '../components/topbar'
+import { CategoryPaths } from '../lib/categories'
 
 type Props = {
   children?: ReactNode,
   title?: string,
-  pageLinks?: Array<string>
+  categoryPaths?: CategoryPaths
 }
 
 const Layout = (props: Props) => {
@@ -23,7 +24,7 @@ const Layout = (props: Props) => {
         sidebar={sidebarVisible}/>
         <div className='flex-initial'>
           <Sidebar 
-          pageLinks={props.pageLinks}
+          categoryPaths={props.categoryPaths}
           setState={setSidebarVisible}
           sidebar={sidebarVisible}/>
         </div>
