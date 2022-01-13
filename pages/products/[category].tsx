@@ -10,21 +10,26 @@ import {
 } from '../../lib/products'
 import { 
   GetAllPaths,
-  AllPaths
+  PathList,
+  GetCurrentNestedPath
 } from "../../lib/paths"
 
 type Props = {
   children?: ReactNode,
   title?: string,
-  allPaths?: AllPaths,
-  products?: Products
+  allPaths?: PathList,
+  products?: Products,
+  currentPaths?: PathList
 }
 const Category:NextPage = (props:any) => {
-  const items = props.pro
+  // const items = props.pro
+  console.log(props.currentPaths)
+
   return (
     <Layout
     title={props.title}
-    allPaths={props.allPaths}>
+    allPaths={props.allPaths}
+    currentPath={props.currentPaths}>
       <ProductList 
       title={props.title}
       list={props.products}/>
@@ -43,10 +48,12 @@ export const getStaticPaths = async() => {
 export const getStaticProps = async({params}:any) => {
   const allPaths = await GetAllPaths()
   const products = await GetProductsInCategory(params.category)
+  const nestedPaths = await GetCurrentNestedPath(params.category)
   const props:Props = {
     title: params.category,
     allPaths: allPaths,
-    products: products
+    products: products,
+    currentPaths: nestedPaths
   }
   return { props: props }
 }

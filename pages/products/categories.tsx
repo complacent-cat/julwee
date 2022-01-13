@@ -13,13 +13,16 @@ import {
 } from '../../lib/categories';
 import {
   GetAllPaths,
-  AllPaths
+  PathList,
+  GetCurrentNestedPath
 } from '../../lib/paths'
 
 type Props = {
   children?: ReactNode,
-  categoryPaths?: CategoryPaths
-  allPaths?: AllPaths
+  title?: string,
+  categoryPaths?: CategoryPaths,
+  allPaths?: PathList,
+  currentPaths?: PathList
 }
 
 const Card = (props:any) => {
@@ -42,8 +45,9 @@ const CardPanel = (props:any) => {
 const categories: NextPage = (props: Props) => {
   return (
     <Layout
-    title='Catergories'
-    allPaths={props.allPaths}>
+    title={props.title}
+    allPaths={props.allPaths}
+    currentPath={props.currentPaths}>
       <h1>Categories</h1>
       <CardPanel 
       categoryPaths={props.categoryPaths}/>
@@ -58,11 +62,16 @@ const categories: NextPage = (props: Props) => {
 export default categories
 
 export const getStaticProps = async() => {
+  const title = 'categories'
   const categoryPaths = await GetCategoryPaths()
   const allPaths = await GetAllPaths()
+  const currentPaths = await GetCurrentNestedPath(title)
+
   const props:Props = {
+    title: title,
     categoryPaths: categoryPaths,
-    allPaths: allPaths
+    allPaths: allPaths,
+    currentPaths: currentPaths
   }
   return { props: props }
 }

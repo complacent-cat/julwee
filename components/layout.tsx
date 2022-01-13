@@ -3,12 +3,13 @@ import Head from 'next/head'
 
 import Sidebar from '../components/sidebar'
 import Topbar from '../components/topbar'
-import { AllPaths } from '../lib/paths'
+import { PathList } from '../lib/paths'
 
 type Props = {
   children?: ReactNode,
   title?: string,
-  allPaths?: AllPaths
+  allPaths?: PathList
+  currentPath?: PathList
 }
 
 const Layout = (props: Props) => {
@@ -21,7 +22,8 @@ const Layout = (props: Props) => {
       <div className='flex flex-col h-100'>
         <Topbar 
         setState={setSidebarVisible}
-        sidebar={sidebarVisible}/>
+        sidebar={sidebarVisible}
+        currentPath={props.currentPath}/>
         <div className='flex-initial'>
           <Sidebar 
           allPaths={props.allPaths}

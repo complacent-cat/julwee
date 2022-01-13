@@ -4,17 +4,17 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid'
 
 
 import { 
-  AllPaths,
+  PathList,
   Path
 } from '../lib/paths'
 
 type Props = {
-  allPaths?: AllPaths,
+  allPaths?: PathList,
   setState: Dispatch<boolean>,
   sidebar?: boolean
 }
 type MenuProps = {
-  allPaths?: AllPaths,
+  allPaths?: PathList,
 }
 const ListItem = ({path}:any) => {
   if (path.nested != null) {

@@ -8,12 +8,15 @@ import { ReactNode } from 'react';
 import Layout from '../components/layout';
 import { 
   GetAllPaths, 
-  AllPaths
+  PathList,
+  GetCurrentNestedPath
 } from '../lib/paths';
 
 type Props = {
   children?: ReactNode,
-  allPaths?: AllPaths
+  title?: string,
+  allPaths?: PathList,
+  currentPaths?: PathList,
 }
 
 const Home: NextPage = (props: Props) => {
@@ -33,8 +36,11 @@ const Home: NextPage = (props: Props) => {
 export default Home
 
 export const getStaticProps = async() => {
+  const title = 'julwee'
   const allPaths = await GetAllPaths()
+
   const props:Props = {
+    title: 'julwee',
     allPaths: allPaths,
   }
   return {
