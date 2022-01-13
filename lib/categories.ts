@@ -17,7 +17,7 @@ export const GetCategoryPaths = async() => {
   const paths = categories.map((item: string) =>{
     return {
       title: item,
-      path: `/products/${item}`
+      route: `/products/${item}`
     }
   })
   return paths

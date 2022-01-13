@@ -3,20 +3,20 @@ import { NextPage } from "next"
 
 import Layout from "../../components/layout"
 import ProductList from "../../components/productList"
-import { 
-  GetCategoryPaths, 
-  CategoryPaths, 
-  GetCategoryPathNames, 
-} from "../../lib/categories"
+import { GetCategoryPathNames } from "../../lib/categories"
 import { 
   Products,
   GetProductsInCategory 
 } from '../../lib/products'
+import { 
+  GetAllPaths,
+  AllPaths
+} from "../../lib/paths"
 
 type Props = {
   children?: ReactNode,
   title?: string,
-  categoryPaths?: CategoryPaths,
+  allPaths?: AllPaths,
   products?: Products
 }
 const Category:NextPage = (props:any) => {
@@ -24,7 +24,7 @@ const Category:NextPage = (props:any) => {
   return (
     <Layout
     title={props.title}
-    categoryPaths={props.categoryPaths}>
+    allPaths={props.allPaths}>
       <ProductList 
       title={props.title}
       list={props.products}/>
@@ -41,11 +41,11 @@ export const getStaticPaths = async() => {
   }
 }
 export const getStaticProps = async({params}:any) => {
-  const categoryPath = await GetCategoryPaths()
+  const allPaths = await GetAllPaths()
   const products = await GetProductsInCategory(params.category)
   const props:Props = {
     title: params.category,
-    categoryPaths: categoryPath,
+    allPaths: allPaths,
     products: products
   }
   return { props: props }

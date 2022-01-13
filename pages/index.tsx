@@ -7,20 +7,20 @@ import { ReactNode } from 'react';
 
 import Layout from '../components/layout';
 import { 
-  GetCategoryPaths, 
-  CategoryPaths
-} from '../lib/categories';
+  GetAllPaths, 
+  AllPaths
+} from '../lib/paths';
 
 type Props = {
   children?: ReactNode,
-  categoryPaths?: CategoryPaths
+  allPaths?: AllPaths
 }
 
 const Home: NextPage = (props: Props) => {
   return (
     <Layout 
     title='julwee'
-    categoryPaths={props.categoryPaths}>
+    allPaths={props.allPaths}>
       <h1>
         Read{' '}
         <Link href='/products/categories'>
@@ -33,9 +33,9 @@ const Home: NextPage = (props: Props) => {
 export default Home
 
 export const getStaticProps = async() => {
-  const categoryPaths = await GetCategoryPaths()
+  const allPaths = await GetAllPaths()
   const props:Props = {
-    categoryPaths: categoryPaths,
+    allPaths: allPaths,
   }
   return {
     props: props

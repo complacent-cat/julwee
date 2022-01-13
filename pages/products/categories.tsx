@@ -11,10 +11,15 @@ import {
   GetCategoryPaths,
   CategoryPaths,
 } from '../../lib/categories';
+import {
+  GetAllPaths,
+  AllPaths
+} from '../../lib/paths'
 
 type Props = {
   children?: ReactNode,
   categoryPaths?: CategoryPaths
+  allPaths?: AllPaths
 }
 
 const Card = (props:any) => {
@@ -38,7 +43,7 @@ const categories: NextPage = (props: Props) => {
   return (
     <Layout
     title='Catergories'
-    categoryPaths={props.categoryPaths}>
+    allPaths={props.allPaths}>
       <h1>Categories</h1>
       <CardPanel 
       categoryPaths={props.categoryPaths}/>
@@ -54,8 +59,10 @@ export default categories
 
 export const getStaticProps = async() => {
   const categoryPaths = await GetCategoryPaths()
+  const allPaths = await GetAllPaths()
   const props:Props = {
     categoryPaths: categoryPaths,
+    allPaths: allPaths
   }
   return { props: props }
 }
